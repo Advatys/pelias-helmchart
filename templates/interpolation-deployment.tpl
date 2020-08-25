@@ -34,7 +34,7 @@ spec:
           {{- if .Values.interpolation.resources }}
           resources:
 {{ toYaml .Values.interpolation.resources | indent 12 }}
-	  {{- end }}
+          {{- end }}
 
       containers:
         - name: pelias-interpolation
@@ -50,7 +50,7 @@ spec:
           {{- if .Values.interpolation.resources }}
           resources:
 {{ toYaml .Values.interpolation.resources | indent 12 }}
-	  {{- end }}
+          {{- end }}
       volumes:
         - name: data-volume
         {{- if .Values.interpolation.pvc.create }}
