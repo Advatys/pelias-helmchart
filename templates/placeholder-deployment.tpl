@@ -31,6 +31,9 @@ spec:
           volumeMounts:
             - name: data-volume
               mountPath: /data
+	  resources:
+{{ toYaml .Values.placeholder.resources | indent 12 }}
+	  {{- end }}
       containers:
         - name: pelias-placeholder
           image: pelias/placeholder:{{ .Values.placeholder.dockerTag }}
