@@ -43,7 +43,7 @@ spec:
             - name: CPUS
               value: "{{ .Values.placeholder.cpus }}"
           {{- if .Values.placeholder.resources }}
-          resource:
+          resources:
 {{ toYaml .Values.placeholder.resources | indent 12 }}
 	  {{- end }}
       volumes:
