@@ -51,12 +51,10 @@ placeholder:
       wget -O- "$DOWNLOAD_URL" | gunzip > /data/placeholder/store.sqlite3
   resources:
     limits:
-      # cannot use a hyphen to match the k8s param due to https://github.com/helm/helm/issues/2192
       ephemeral-storage: 5Gi
     requests:
       memory: 512Mi
       cpu: 0.1
-      # cannot use a hyphen to match the k8s param due to https://github.com/helm/helm/issues/2192
       ephemeral-storage: 5Gi
   annotations: {}
   nodeSelector: {}
