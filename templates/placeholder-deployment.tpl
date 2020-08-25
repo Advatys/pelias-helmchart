@@ -34,7 +34,7 @@ spec:
 	  {{- if .Values.placeholder.resources }}
 	  resources:
 {{ toYaml .Values.placeholder.resources | indent 12 }}
-	  {{- end }}
+          {{- end }}
       containers:
         - name: pelias-placeholder
           image: pelias/placeholder:{{ .Values.placeholder.dockerTag }}
@@ -49,7 +49,7 @@ spec:
           {{- if .Values.placeholder.resources }}
           resources:
 {{ toYaml .Values.placeholder.resources | indent 12 }}
-	  {{- end }}
+          {{- end }}
       volumes:
         - name: data-volume
         {{- if .Values.placeholder.pvc.create }}
