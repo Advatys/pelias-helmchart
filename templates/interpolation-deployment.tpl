@@ -31,10 +31,7 @@ spec:
           volumeMounts:
             - name: data-volume
               mountPath: /data
-          {{- if .Values.interpolation.resources }}
-          resources:
-{{ toYaml .Values.placeholder.resources | indent 12 }}
-	        {{- end }}
+
       containers:
         - name: pelias-interpolation
           image: pelias/interpolation:{{ .Values.interpolation.dockerTag }}
@@ -46,15 +43,10 @@ spec:
           env:
             - name: PELIAS_CONFIG
               value: "/etc/config/pelias.json"
+          {{- if .Values.interpolation.resources }}
           resources:
-            limits:
-              memory: 3Gi
-              cpu: 2
-              ephemeral-storage: {{ .Values.interpolation.limits.ephemeral_storage }}
-            requests:
-              memory: {{ .Values.interpolation.requests.memory | quote }}
-              cpu: {{ .Values.interpolation.requests.cpu | quote }}
-              ephemeral-storage: {{ .Values.interpolation.requests.ephemeral_storage }}
+{{ toYaml .Values.interpolation.resources | indent 12 }}
+	  {{- end }}
       volumes:
         - name: data-volume
         {{- if .Values.interpolation.pvc.create }}
