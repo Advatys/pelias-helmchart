@@ -31,11 +31,10 @@ spec:
           volumeMounts:
             - name: data-volume
               mountPath: /data
-          {{- if .Values.interpolation.resources }}
+{{- if .Values.interpolation.resources }}
           resources:
 {{ toYaml .Values.interpolation.resources | indent 12 }}
-          {{- end }}
-
+{{- end }}
       containers:
         - name: pelias-interpolation
           image: pelias/interpolation:{{ .Values.interpolation.dockerTag }}
