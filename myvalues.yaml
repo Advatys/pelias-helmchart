@@ -1,7 +1,7 @@
 # override this to use external elasticsearch
 elasticsearch:
   host: "es1-elasticsearch-coordinating-only"
-  port: 9200
+  port: 9200  
   protocol: "http"
 
 canary:
@@ -15,11 +15,8 @@ api:
   dockerTag: "latest"
   canaryDockerTag: null # set this value to enable the canary deployment
   indexName: "pelias"
-  attributionURL: "http://pelias-api-service:3100/attribution"
-  # Whether the API service should be externally accessible
-  # Set this to true if you want to, for example on AWS, set up an ELB for the API
+  attributionURL: "http://api.yourpelias.com/attribution"
   externalService: false
-  # whether the external service  should be internet facing or private (default private)
   privateLoadBalancer: true
   accessLog: "common" # allows configuring access log format. Empty string disables access log
   autocomplete:
@@ -42,30 +39,22 @@ placeholder:
   maxSurge: 1
   maxUnavailable: 0
   minReadySeconds: 5
-  storeURL: "https://s3.amazonaws.com/pelias-data.nextzen.org/portland-metro/placeholder/store.sqlite3.gz"
+  storeURL: "https://data.geocode.earth/placeholder/2020-05-08/store.sqlite3.gz"
   cpus: 1 # how many CPUs to allow using via the npm `cluster2` module
   retries: 1 # number of time the API will retry requests to placeholder
   timeout: 5000 # time in ms the API will wait for placeholder responses
   downloadCommand: >
       mkdir -p /data/placeholder/ &&
       wget -O- "$DOWNLOAD_URL" | gunzip > /data/placeholder/store.sqlite3
-  limits:
-    # cannot use a hyphen to match the k8s param due to https://github.com/helm/helm/issues/2192
-    ephemeral_storage: 5Gi
   requests:
     memory: 512Mi
     cpu: 0.1
-    # cannot use a hyphen to match the k8s param due to https://github.com/helm/helm/issues/2192
-    ephemeral_storage: 5Gi
-  annotations: {}
-  nodeSelector: {}
-  pvc: {}
-#    create: true
-#    name: placeholder-pvc
-#    storageClass: aws-efs
-#    accessModes: ReadWriteMany
-#    storage: 10Gi
-#    annotations: {}
+  pvc:
+    create: true
+    name: placeholder 
+    storage: 25Gi
+    accessModes: ReadWriteOnce
+    storageClass: standard
 
 libpostal:
   enabled: true
@@ -81,38 +70,30 @@ libpostal:
   nodeSelector: {}
 
 interpolation:
-  enabled: false
+  enabled: true
   replicas: 1
   host: "http://pelias-interpolation-service:3000/"
   dockerTag: "latest"
   maxSurge: 1
   maxUnavailable: 0
   minReadySeconds: 5
-  # URL prefix of location where streets.db and address.db will be downloaded
-  downloadPath: "https://s3.amazonaws.com/pelias-data.nextzen.org/portland-metro/interpolation"
+  downloadPath: "https://storage.googleapis.com/interpolation-world-data"
   retries: 1 # number of time the API will retry requests to interpolation service
   timeout: 5000 # time in ms the API will wait for interpolation service responses
   downloadCommand: >
     mkdir -p /data/interpolation/ &&
     wget -O - $DOWNLOAD_PATH/street.db.gz | gunzip > /data/interpolation/street.db &
     wget -O - $DOWNLOAD_PATH/address.db.gz | gunzip > /data/interpolation/address.db
-  limits:
-    # cannot use a hyphen to match the k8s param due to https://github.com/helm/helm/issues/2192
-    ephemeral_storage: 5Gi
   requests:
     memory: 2Gi
     cpu: 0.1
-    # cannot use a hyphen to match the k8s param due to https://github.com/helm/helm/issues/2192
-    ephemeral_storage: 5Gi
-  annotations: {}
-  nodeSelector: {}
-  pvc: {}
-#    create: true
-#    name: interpolation-pvc
-#    storageClass: aws-efs
-#    accessModes: ReadWriteMany
-#    storage: 10Gi
-#    annotations: {}
+  pvc:
+    create: true
+    name: interpolation
+    storage: 35Gi
+    accessModes: ReadWriteOnce
+    storageClass: standard
+
 
 pip:
   enabled: true
@@ -127,31 +108,23 @@ pip:
   initialDelaySeconds: 300 # pip service takes a long time to start up
   downloadCommand: "./bin/download --admin-only"
   limits:
-    memory: 16Gi
-    cpu: 3
-    # cannot use a hyphen to match the k8s param due to https://github.com/helm/helm/issues/2192
-    ephemeral_storage: 35Gi
+    memory: 7Gi
+    cpu: 2
   requests:
-    memory: 10Gi
+    memory: 6Gi
     cpu: 1
-    # cannot use a hyphen to match the k8s param due to https://github.com/helm/helm/issues/2192
-    ephemeral_storage: 35Gi
-  annotations: {}
-  nodeSelector: {}
-  pvc: {}
-#    create: true
-#    name: pip-pvc
-#    storageClass: aws-efs
-#    accessModes: ReadWriteMany
-#    storage: 10Gi
-#    annotations: {}
+  pvc:
+    create: true
+    name: pip 
+    storage: 45Gi
+    accessModes: ReadWriteOnce
+    storageClass: standard
 
 dashboard:
   enabled: true
   replicas: 1
   dockerTag: "latest"
-  domain: null # set this to enable an ingress
-  nodeSelector: {}
+  domain: dashboard.mydomain.com
 
 healthlogger:
   replicas: 0
@@ -162,18 +135,8 @@ healthlogger:
   requests:
     memory: 100Mi
     cpu: 0.1
-  annotations: {}
-  nodeSelector: {}
   watch_interval: 60
 
-# Deprecated fields
-# pipEnabled: true
-# pipHost: "http://pelias-pip-service:3102/"
-
-# interpolationEnabled: false
-# interpolationHost: "http://pelias-interpolation-service:3000/"
-
-# Importer settings
 whosonfirst:
   sqlite: true
   dataHost: null

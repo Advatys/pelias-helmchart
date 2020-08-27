@@ -42,4 +42,4 @@ spec:
                 path: pelias.json
         - name: data-volume
           persistentVolumeClaim:
-            claimName: pelias-build-pvc
+            claimName: polyines 

@@ -9,5 +9,5 @@ spec:
     ports:
         - protocol: TCP
           port: 3030
-    type: ClusterIP
+    type: NodePort
 {{- end -}}

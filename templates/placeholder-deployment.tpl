@@ -21,6 +21,8 @@ spec:
 {{ toYaml .Values.placeholder.annotations | indent 8 }}
 {{- end }}
     spec:
+      securityContext:
+        fsGroup: 1000 # workaround to enable user 'pelias' to write the needed data
       initContainers:
         - name: download
           image: pelias/placeholder:{{ .Values.placeholder.dockerTag }}

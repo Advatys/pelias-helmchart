@@ -20,8 +20,34 @@ spec:
     spec:
       containers:
         - name: pelias-dashboard
+          ports:
+          - containerPort: 3030
+            name: http
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 6
+            httpGet:
+              path: /pelias
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          livenessProbe:
+            failureThreshold: 6
+            httpGet:
+              path: /pelias
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 120
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
           image: pelias/dashboard:{{ .Values.dashboard.dockerTag }}
           env:
+            - name: AUTH_TOKEN
+              value: "foo"
             - name: ES_ENDPOINT
               {{- if .Values.elasticsearch.auth }}
               value: {{ .Values.elasticsearch.protocol }}://{{ .Values.elasticsearch.auth }}@{{ .Values.elasticsearch.host }}:{{ .Values.elasticsearch.port }}/
