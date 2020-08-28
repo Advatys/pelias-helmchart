@@ -109,7 +109,8 @@ data:
           "dataHost": "{{ .Values.whosonfirst.dataHost}}",
           {{ end }}
           "importPostalcodes": true,
-          "datapath": "/data/whosonfirst"
+          "datapath": "/data/whosonfirst",
+          "countryCode": "{{ .Values.whosonfirst.countrycode }}"
         }
       }
     }

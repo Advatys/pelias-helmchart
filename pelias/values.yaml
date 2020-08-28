@@ -140,3 +140,4 @@ healthlogger:
 whosonfirst:
   sqlite: true 
   dataHost: null
+  countrycode: "US"
