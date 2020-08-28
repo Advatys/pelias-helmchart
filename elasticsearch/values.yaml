@@ -211,3 +211,4 @@ metrics:
   serviceMonitor:
     enabled: false
 
+plugins: analysis-icu 

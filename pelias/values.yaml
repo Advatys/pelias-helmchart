@@ -108,10 +108,10 @@ pip:
   initialDelaySeconds: 300 # pip service takes a long time to start up
   downloadCommand: "./bin/download --admin-only"
   limits:
-    memory: 10Gi
+    memory: 12Gi
     cpu: 2
   requests:
-    memory: 8Gi
+    memory: 10Gi
     cpu: 1
   pvc:
     create: true

@@ -2,6 +2,6 @@ polylinesDownloadURL: "https://s3.amazonaws.com/pelias-data.nextzen.org/polyline
 pv:
   geonames: 10Gi
   openaddresses: 10Gi
-  openstreetmap: 10Gi
+  openstreet: 10Gi
   polylines: 10Gi
   whosonfirst: 10Gi

@@ -8,4 +8,4 @@ spec:
     - ReadWriteOnce 
   resources:
     requests:
-      storage: {{ .Values.pv.polyines }} 
+      storage: {{ .Values.pv.polylines }} 
