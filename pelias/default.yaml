@@ -177,3 +177,12 @@ healthlogger:
 whosonfirst:
   sqlite: true
   dataHost: null
+
+imports:
+  geonames: "ALL"
+  openaddresses: []
+  openstreetmap:
+    url: "https://planet.openstreetmap.org/pbf/"
+    filename: planet-latest.osm.pbf
+  whosonfirst: "US"
+

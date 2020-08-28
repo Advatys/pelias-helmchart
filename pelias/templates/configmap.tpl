@@ -1,3 +1,4 @@
+ 
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -31,12 +32,6 @@ data:
         },
         "attributionURL": "{{ .Values.api.attributionURL }}",
         "indexName": "{{ .Values.api.indexName }}",
-        {{ if .Values.api.targets.auto_discover }}
-        "targets": {
-          "auto_discover": {{ .Values.api.targets.auto_discover }}
-        },
-        "exposeInternalDebugTools": {{ .Values.api.exposeInternalDebugTools }},
-        {{- end }}
         "services": {
           {{ if .Values.placeholder.enabled  }}
           "placeholder": {
@@ -89,19 +84,19 @@ data:
         },
         "geonames": {
           "datapath": "/data/geonames",
-          "countryCode": "ALL"
+          "countryCode": "US"
         },
         "openaddresses": {
           "datapath": "/data/openaddresses",
-          "files": []
+          "files": [ "us/ny/city_of_new_york.csv" ] 
         },
         "openstreetmap": {
           "download": [{
-              "sourceURL": "https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf"
+              "sourceURL": "https://download.geofabrik.de/north-america/us-latest.osm.pbf"
           }],
           "datapath": "/data/openstreetmap",
           "import": [{
-            "filename": "planet-latest.osm.pbf"
+            "filename": "us-latest.osm.pbf"
           }]
         },
         "polyline": {
@@ -113,7 +108,6 @@ data:
           {{ if .Values.whosonfirst.dataHost }}
           "dataHost": "{{ .Values.whosonfirst.dataHost}}",
           {{ end }}
-          "importVenues": false,
           "importPostalcodes": true,
           "datapath": "/data/whosonfirst"
         }

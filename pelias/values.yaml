@@ -15,7 +15,7 @@ api:
   dockerTag: "latest"
   canaryDockerTag: null # set this value to enable the canary deployment
   indexName: "pelias"
-  attributionURL: "http://api.yourpelias.com/attribution"
+  attributionURL: "http://pelias-api-service:3100/attribution" 
   externalService: false
   privateLoadBalancer: true
   accessLog: "common" # allows configuring access log format. Empty string disables access log
@@ -77,7 +77,7 @@ interpolation:
   maxSurge: 1
   maxUnavailable: 0
   minReadySeconds: 5
-  downloadPath: "https://storage.googleapis.com/interpolation-world-data"
+  downloadPath: "https://s3.amazonaws.com/pelias-data.nextzen.org/portland-metro/interpolation"
   retries: 1 # number of time the API will retry requests to interpolation service
   timeout: 5000 # time in ms the API will wait for interpolation service responses
   downloadCommand: >
@@ -85,12 +85,12 @@ interpolation:
     wget -O - $DOWNLOAD_PATH/street.db.gz | gunzip > /data/interpolation/street.db &
     wget -O - $DOWNLOAD_PATH/address.db.gz | gunzip > /data/interpolation/address.db
   requests:
-    memory: 2Gi
+    memory: 3Gi
     cpu: 0.1
   pvc:
     create: true
     name: interpolation
-    storage: 35Gi
+    storage: 40Gi
     accessModes: ReadWriteOnce
     storageClass: standard
 
@@ -108,10 +108,10 @@ pip:
   initialDelaySeconds: 300 # pip service takes a long time to start up
   downloadCommand: "./bin/download --admin-only"
   limits:
-    memory: 7Gi
+    memory: 10Gi
     cpu: 2
   requests:
-    memory: 6Gi
+    memory: 8Gi
     cpu: 1
   pvc:
     create: true
@@ -138,5 +138,5 @@ healthlogger:
   watch_interval: 60
 
 whosonfirst:
-  sqlite: true
+  sqlite: true 
   dataHost: null
