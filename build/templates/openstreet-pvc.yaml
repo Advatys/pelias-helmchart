@@ -1,11 +1,11 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: pelias-build-pvc
+  name:  openstreet
+  annotations:
 spec:
-  storageClassName: ""
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce 
   resources:
     requests:
-      storage: 500Gi
+      storage: {{ .Values.pv.openstreet }} 

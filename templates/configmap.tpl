@@ -97,11 +97,11 @@ data:
         },
         "openstreetmap": {
           "download": [{
-              "sourceURL": "https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf"
+              "sourceURL": "https://download.geofabrik.de/north-america/us-latest.osm.pbf"
           }],
           "datapath": "/data/openstreetmap",
           "import": [{
-            "filename": "planet-latest.osm.pbf"
+            "filename": "us-latest.osm.pbf"
           }]
         },
         "polyline": {
@@ -115,6 +115,9 @@ data:
           {{ end }}
           "importPostalcodes": true,
           "datapath": "/data/whosonfirst"
+          {{ if .Values.whosonfirst.countryCode }}
+          "dataHost": "{{ .Values.whosonfirst.countryCode}}",
+          {{ end }}
         }
       }
     }
