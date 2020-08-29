@@ -114,7 +114,7 @@ data:
           "dataHost": "{{ .Values.whosonfirst.dataHost}}",
           {{ end }}
           "importPostalcodes": true,
-          "datapath": "/data/whosonfirst"
+          "datapath": "/data/whosonfirst",
           {{ if .Values.whosonfirst.countryCode }}
           "countryCode": "{{ .Values.whosonfirst.countryCode}}",
           {{ end }}
