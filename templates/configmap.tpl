@@ -113,11 +113,12 @@ data:
           {{ if .Values.whosonfirst.dataHost }}
           "dataHost": "{{ .Values.whosonfirst.dataHost}}",
           {{ end }}
-          "importPostalcodes": true,
-          "datapath": "/data/whosonfirst",
           {{ if .Values.whosonfirst.countryCode }}
           "countryCode": "{{ .Values.whosonfirst.countryCode}}",
           {{ end }}
+          "importPostalcodes": true,
+          "datapath": "/data/whosonfirst"
+
         }
       }
     }
