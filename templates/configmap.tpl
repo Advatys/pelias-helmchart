@@ -89,7 +89,7 @@ data:
         },
         "geonames": {
           "datapath": "/data/geonames",
-          "countryCode": "ALL"
+          "countryCode": "US"
         },
         "openaddresses": {
           "datapath": "/data/openaddresses",
