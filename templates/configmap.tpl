@@ -116,7 +116,7 @@ data:
           "importPostalcodes": true,
           "datapath": "/data/whosonfirst"
           {{ if .Values.whosonfirst.countryCode }}
-          "dataHost": "{{ .Values.whosonfirst.countryCode}}",
+          "countryCode": "{{ .Values.whosonfirst.countryCode}}",
           {{ end }}
         }
       }
