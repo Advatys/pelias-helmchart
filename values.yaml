@@ -1,8 +1,15 @@
 # override this to use external elasticsearch
 elasticsearch:
-  host: "es1-elasticsearch-coordinating-only"
+  host: "pelias-elasticsearch-coordinating-only"
   port: 9200  
   protocol: "http"
+  plugins: analysis-icu
+  data:
+    persistence:
+      size: 20Gi
+  master:
+    persistence:
+      size: 8Gi
 
 canary:
   elasticsearch:

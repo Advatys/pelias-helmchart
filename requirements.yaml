@@ -1,0 +1,4 @@
+dependencies:
+  - name: elasticsearch 
+    repository: https://charts.bitnami.com/bitnami
+    version: 12.6.2 
