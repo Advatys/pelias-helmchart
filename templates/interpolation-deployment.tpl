@@ -21,8 +21,6 @@ spec:
 {{ toYaml .Values.interpolation.annotations | indent 8 }}
 {{- end }}
     spec:
-      securityContext:
-        fsGroup: 1000 # workaround to enable user 'pelias' to write the needed data
       initContainers:
         - name: download
           image: pelias/interpolation:{{ .Values.interpolation.dockerTag }}
@@ -37,9 +35,11 @@ spec:
             limits:
               memory: 3Gi
               cpu: 2
+              ephemeral-storage: {{ .Values.interpolation.limits.ephemeral_storage }}
             requests:
               memory: 512Mi
               cpu: 0.1
+              ephemeral-storage: {{ .Values.interpolation.requests.ephemeral_storage }}
       containers:
         - name: pelias-interpolation
           image: pelias/interpolation:{{ .Values.interpolation.dockerTag }}
@@ -59,7 +59,7 @@ spec:
             requests:
               memory: {{ .Values.interpolation.requests.memory | quote }}
               cpu: {{ .Values.interpolation.requests.cpu | quote }}
-              ephemeral-storage: {{ .Values.interpolation.limits.ephemeral_storage }}
+              ephemeral-storage: {{ .Values.interpolation.requests.ephemeral_storage }}
       volumes:
         - name: data-volume
         {{- if .Values.interpolation.pvc.create }}

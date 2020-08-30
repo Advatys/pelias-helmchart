@@ -21,8 +21,6 @@ spec:
 {{ toYaml .Values.pip.annotations | indent 8 }}
 {{- end }}
     spec:
-      securityContext: 
-        fsGroup: 1000 # workaround to enable user 'pelias' to write the needed data
       initContainers:
         - name: download
           image: pelias/pip-service:{{ .Values.pip.dockerTag }}
@@ -39,9 +37,11 @@ spec:
             limits:
               memory: 3Gi
               cpu: 4
+              ephemeral-storage: {{ .Values.pip.limits.ephemeral_storage }}
             requests:
               memory: 1Gi
               cpu: 0.1
+              ephemeral-storage: {{ .Values.pip.requests.ephemeral_storage }}
       containers:
         - name: pelias-pip
           image: pelias/pip-service:{{ .Values.pip.dockerTag }}
@@ -57,9 +57,11 @@ spec:
             limits:
               memory: {{ .Values.pip.limits.memory }}
               cpu: {{ .Values.pip.limits.cpu }}
+              ephemeral-storage: {{ .Values.pip.limits.ephemeral_storage }}
             requests:
               memory: {{ .Values.pip.requests.memory | quote }}
               cpu: {{ .Values.pip.requests.cpu | quote }}
+              ephemeral-storage: {{ .Values.pip.requests.ephemeral_storage }}
           readinessProbe:
             httpGet:
               path: /12/12

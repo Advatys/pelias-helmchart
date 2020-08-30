@@ -35,12 +35,6 @@ data:
         "targets": {
           "auto_discover": {{ .Values.api.targets.auto_discover }}
         },
-        "exposeInternalDebugTools": {{ .Values.api.exposeInternalDebugTools }},
-        {{- end }}
-        {{ if .Values.api.targets.auto_discover }}
-        "targets": {
-          "auto_discover": {{ .Values.api.targets.auto_discover }}
-        },
         {{- end }}
         "services": {
           {{ if .Values.placeholder.enabled  }}
@@ -118,7 +112,6 @@ data:
           {{ if .Values.whosonfirst.dataHost }}
           "dataHost": "{{ .Values.whosonfirst.dataHost}}",
           {{ end }}
-          "importVenues": false,
           "importPostalcodes": true,
           "datapath": "/data/whosonfirst"
         }
