@@ -31,6 +31,12 @@ data:
         },
         "attributionURL": "{{ .Values.api.attributionURL }}",
         "indexName": "{{ .Values.api.indexName }}",
+        {{ if (.Values.api.targets.auto_discover) and ( or (eq .Values.api.targets.auto_discover true) ( eq .Values.api.targets.auto_discover false ) ) }}
+        "targets": {
+          "auto_discover": {{ .Values.api.targets.auto_discover }}
+        },
+        "exposeInternalDebugTools": {{ .Values.api.exposeInternalDebugTools }},
+        {{- end }}
         {{ if .Values.api.targets.auto_discover }}
         "targets": {
           "auto_discover": {{ .Values.api.targets.auto_discover }}

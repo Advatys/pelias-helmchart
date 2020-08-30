@@ -8,7 +8,7 @@ spec:
   - host: {{ .Values.dashboard.domain }}
     http:
       paths:
-      - path: /*
+      - path: /
         backend:
           serviceName: pelias-dashboard-service
           servicePort: 3030
