@@ -1,11 +1,11 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: geonames-import
+  name: pelias-geonames-import
 spec:
   template:
     metadata:
-      name: geonames-import-pod
+      name: pelias-geonames-import-pod
     spec:
       initContainers:
         - name: setup
@@ -34,7 +34,7 @@ spec:
               memory: 512Mi
               cpu: 1
       containers:
-      - name: geonames-import-container
+      - name: pelias-geonames-import-container
         image: pelias/geonames:{{ .Values.geonamesDockerTag | default "latest" }}
         command: ["./bin/start"]
         volumeMounts:
@@ -61,5 +61,4 @@ spec:
           - key: pelias.json
             path: pelias.json
       - name: data-volume
-        persistentVolumeClaim:
-          claimName: geonames
+        emptyDir: {}

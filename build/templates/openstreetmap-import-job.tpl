@@ -1,11 +1,11 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: openstreetmap-import
+  name: pelias-openstreetmap-import
 spec:
   template:
     metadata:
-      name: openstreetmap-import
+      name: pelias-openstreetmap-import
     spec:
       initContainers:
       - name: setup
@@ -34,7 +34,7 @@ spec:
             memory: 256Mi
             cpu: 0.5
       containers:
-      - name: openstreetmap-import-container
+      - name: pelias-openstreetmap-import-container
         image: pelias/openstreetmap:{{ .Values.openstreetmapDockerTag | default "latest"}}
         command: ["./bin/start"]
         volumeMounts:
@@ -61,5 +61,4 @@ spec:
               - key: pelias.json
                 path: pelias.json
         - name: data-volume
-          persistentVolumeClaim:
-            claimName: openstreet
+          emptyDir: {}

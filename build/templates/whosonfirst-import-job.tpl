@@ -1,11 +1,11 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: whosonfirst-import
+  name: pelias-whosonfirst-import
 spec:
   template:
     metadata:
-      name: whosonfirst-import
+      name: pelias-whosonfirst-import
     spec:
       initContainers:
       - name: setup
@@ -34,7 +34,7 @@ spec:
             memory: 512Mi
             cpu: 1.5
       containers:
-      - name: whosonfirst-import-container
+      - name: pelias-whosonfirst-import-container
         image: pelias/whosonfirst:{{ .Values.whosonfirstDockerTag | default "latest" }}
         command: ["./bin/start"]
         volumeMounts:
@@ -61,5 +61,4 @@ spec:
               - key: pelias.json
                 path: pelias.json
         - name: data-volume
-          persistentVolumeClaim:
-            claimName: whosonfirst
+          emptyDir: {}
