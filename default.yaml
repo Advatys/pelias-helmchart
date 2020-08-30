@@ -1,6 +1,6 @@
 # override this to use external elasticsearch
 elasticsearch:
-  host: "es1-elasticsearch-coordinating-only"
+  host: "elasticsearch-service"
   port: 9200
   protocol: "http"
 

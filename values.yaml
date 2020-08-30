@@ -22,7 +22,7 @@ api:
   dockerTag: "latest"
   canaryDockerTag: null # set this value to enable the canary deployment
   indexName: "pelias"
-  attributionURL: "http://pelias-api-service:3100/attribution" 
+  attributionURL: "http://api.yourpelias.com/attribution" 
   externalService: false
   privateLoadBalancer: true
   accessLog: "common" # allows configuring access log format. Empty string disables access log
@@ -91,9 +91,14 @@ interpolation:
     mkdir -p /data/interpolation/ &&
     wget -O - $DOWNLOAD_PATH/street.db.gz | gunzip > /data/interpolation/street.db &
     wget -O - $DOWNLOAD_PATH/address.db.gz | gunzip > /data/interpolation/address.db
+  limits:
+    # cannot use a hyphen to match the k8s param due to https://github.com/helm/helm/issues/2192
+    ephemeral_storage: 5Gi
   requests:
-    memory: 3Gi
+    memory: 2Gi
     cpu: 0.1
+    # cannot use a hyphen to match the k8s param due to https://github.com/helm/helm/issues/2192
+    ephemeral_storage: 5Gi
   pvc:
     create: true
     name: interpolation
@@ -147,4 +152,12 @@ healthlogger:
 whosonfirst:
   sqlite: true 
   dataHost: null
-  countrycode: "US"
+
+imports:
+  geonames:
+    countrycode: "US"
+  openstreetmap:
+    url: "https://download.geofabrik.de/north-america/us-latest.osm.pbf"
+    filename: "us-latest.osm.pbf"
+  whosonfirst:
+    countrycode: "US" 

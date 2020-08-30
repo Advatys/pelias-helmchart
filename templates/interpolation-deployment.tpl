@@ -55,9 +55,11 @@ spec:
             limits:
               memory: 3Gi
               cpu: 2
+              ephemeral-storage: {{ .Values.interpolation.limits.ephemeral_storage }}
             requests:
               memory: {{ .Values.interpolation.requests.memory | quote }}
               cpu: {{ .Values.interpolation.requests.cpu | quote }}
+              ephemeral-storage: {{ .Values.interpolation.limits.ephemeral_storage }}
       volumes:
         - name: data-volume
         {{- if .Values.interpolation.pvc.create }}

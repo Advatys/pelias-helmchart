@@ -84,19 +84,19 @@ data:
         },
         "geonames": {
           "datapath": "/data/geonames",
-          "countryCode": "US"
+          "countryCode": "{{ .Values.imports.geonames.countrycode }}" 
         },
         "openaddresses": {
           "datapath": "/data/openaddresses",
-          "files": [ "us/ny/city_of_new_york.csv" ] 
+          "files": [] 
         },
         "openstreetmap": {
           "download": [{
-              "sourceURL": "https://download.geofabrik.de/north-america/us-latest.osm.pbf"
+              "sourceURL": "{{ .Values.imports.openstreetmap.url }}" 
           }],
           "datapath": "/data/openstreetmap",
           "import": [{
-            "filename": "us-latest.osm.pbf"
+            "filename": "{{ .Values.imports.openstreetmap.filename }}"
           }]
         },
         "polyline": {
@@ -110,7 +110,7 @@ data:
           {{ end }}
           "importPostalcodes": true,
           "datapath": "/data/whosonfirst",
-          "countryCode": "{{ .Values.whosonfirst.countrycode }}"
+          "countryCode": "{{ .Values.imports.whosonfirst.countrycode }}"
         }
       }
     }
