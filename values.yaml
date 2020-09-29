@@ -49,14 +49,13 @@ placeholder:
   downloadCommand: >
       mkdir -p /data/placeholder/ &&
       wget -O- "$DOWNLOAD_URL" | gunzip > /data/placeholder/store.sqlite3
-  limits:
-    # cannot use a hyphen to match the k8s param due to https://github.com/helm/helm/issues/2192
-    ephemeral_storage: 5Gi
-  requests:
-    memory: 512Mi
-    cpu: 0.1
-    # cannot use a hyphen to match the k8s param due to https://github.com/helm/helm/issues/2192
-    ephemeral_storage: 5Gi
+  resources:
+    limits:
+      ephemeral-storage: 5Gi
+    requests:
+      memory: 512Mi
+      cpu: 0.1
+      ephemeral-storage: 5Gi
   annotations: {}
   nodeSelector: {}
   pvc: {}
@@ -96,14 +95,13 @@ interpolation:
     mkdir -p /data/interpolation/ &&
     wget -O - $DOWNLOAD_PATH/street.db.gz | gunzip > /data/interpolation/street.db &
     wget -O - $DOWNLOAD_PATH/address.db.gz | gunzip > /data/interpolation/address.db
-  limits:
-    # cannot use a hyphen to match the k8s param due to https://github.com/helm/helm/issues/2192
-    ephemeral_storage: 5Gi
-  requests:
-    memory: 2Gi
-    cpu: 0.1
-    # cannot use a hyphen to match the k8s param due to https://github.com/helm/helm/issues/2192
-    ephemeral_storage: 5Gi
+  resources:
+    limits:
+      ephemeral-storage: 5Gi
+    requests:
+      memory: 2Gi
+      cpu: 0.1
+      ephemeral-storage: 5Gi
   annotations: {}
   nodeSelector: {}
   pvc: {}

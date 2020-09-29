@@ -31,15 +31,7 @@ spec:
           volumeMounts:
             - name: data-volume
               mountPath: /data
-          resources:
-            limits:
-              memory: 1Gi
-              cpu: 1.1
-              ephemeral-storage: {{ .Values.placeholder.limits.ephemeral_storage }}
-            requests:
-              memory: 100Mi
-              cpu: 0.2
-              ephemeral-storage: {{ .Values.placeholder.requests.ephemeral_storage }}
+
       containers:
         - name: pelias-placeholder
           image: pelias/placeholder:{{ .Values.placeholder.dockerTag }}
@@ -51,15 +43,10 @@ spec:
               value: "/data/placeholder/"
             - name: CPUS
               value: "{{ .Values.placeholder.cpus }}"
+          {{- if .Values.placeholder.resources }}
           resources:
-            limits:
-              memory: 1Gi
-              cpu: 2
-              ephemeral-storage: {{ .Values.placeholder.limits.ephemeral_storage }}
-            requests:
-              memory: {{ .Values.placeholder.requests.memory | quote }}
-              cpu: {{ .Values.placeholder.requests.cpu | quote }}
-              ephemeral-storage: {{ .Values.placeholder.requests.ephemeral_storage }}
+{{ toYaml .Values.placeholder.resources | indent 12 }}
+          {{- end }}
       volumes:
         - name: data-volume
         {{- if .Values.placeholder.pvc.create }}

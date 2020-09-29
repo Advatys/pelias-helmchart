@@ -89,7 +89,7 @@ data:
         },
         "geonames": {
           "datapath": "/data/geonames",
-          "countryCode": "ALL"
+          "countryCode": "US"
         },
         "openaddresses": {
           "datapath": "/data/openaddresses",
@@ -97,11 +97,11 @@ data:
         },
         "openstreetmap": {
           "download": [{
-              "sourceURL": "https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf"
+              "sourceURL": "https://download.geofabrik.de/north-america/us-latest.osm.pbf"
           }],
           "datapath": "/data/openstreetmap",
           "import": [{
-            "filename": "planet-latest.osm.pbf"
+            "filename": "us-latest.osm.pbf"
           }]
         },
         "polyline": {
@@ -113,8 +113,12 @@ data:
           {{ if .Values.whosonfirst.dataHost }}
           "dataHost": "{{ .Values.whosonfirst.dataHost}}",
           {{ end }}
+          {{ if .Values.whosonfirst.countryCode }}
+          "countryCode": "{{ .Values.whosonfirst.countryCode}}",
+          {{ end }}
           "importPostalcodes": true,
           "datapath": "/data/whosonfirst"
+
         }
       }
     }
