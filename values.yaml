@@ -177,3 +177,12 @@ healthlogger:
 whosonfirst:
   sqlite: false
   dataHost: null
+
+imports:
+  geonames:
+    countrycode: "US"
+  openstreetmap:
+    url: "https://download.geofabrik.de/north-america/us-latest.osm.pbf"
+    filename: "us-latest.osm.pbf"
+  whosonfirst:
+    countrycode: "US" 
