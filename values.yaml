@@ -1,8 +1,9 @@
 # override this to use external elasticsearch
 elasticsearch:
-  host: "elasticsearch-service"
+  host: "pelias-elasticsearch-coordinating-only"
   port: 9200
   protocol: "http"
+  plugins: analysis-icu
 
 canary:
   elasticsearch:
@@ -175,7 +176,7 @@ healthlogger:
 
 # Importer settings
 whosonfirst:
-  sqlite: false
+  sqlite: true
   dataHost: null
 
 imports:
