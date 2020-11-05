@@ -1,11 +1,11 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: pelias-openaddresses-import
+  name: openaddresses-import
 spec:
   template:
     metadata:
-      name: pelias-openaddresses-import-pod
+      name: openaddresses-import-pod
     spec:
       initContainers:
       - name: setup
@@ -34,7 +34,7 @@ spec:
             memory: 256Mi
             cpu: 0.5
       containers:
-      - name: pelias-openaddresses-import-container
+      - name: openaddresses-import-container
         image: pelias/openaddresses:{{ .Values.openaddressesDockerTag | default "latest" }}
         command: ["./bin/start"]
         volumeMounts:

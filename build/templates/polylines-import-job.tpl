@@ -1,11 +1,11 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: pelias-polylines-import
+  name: polylines-import
 spec:
   template:
     metadata:
-      name: pelias-polylines-import-pod
+      name: polylines-import-pod
     spec:
       initContainers:
         - name: download
@@ -16,7 +16,7 @@ spec:
             - name: data-volume
               mountPath: /data
       containers:
-      - name: pelias-polylines-import-container
+      - name: polylines-import-container
         image: pelias/polylines:{{ .Values.polylinesDockerTag | default "latest" }}
         command: ["./bin/start"]
         volumeMounts:
