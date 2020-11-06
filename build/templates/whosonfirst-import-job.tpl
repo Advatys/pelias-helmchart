@@ -61,5 +61,4 @@ spec:
               - key: pelias.json
                 path: pelias.json
         - name: data-volume
-          persistentVolumeClaim:
-            claimName: pelias-build-pvc
+          emptyDir: {}

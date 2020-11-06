@@ -1,3 +1,4 @@
+ 
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -89,19 +90,19 @@ data:
         },
         "geonames": {
           "datapath": "/data/geonames",
-          "countryCode": "ALL"
+          "countryCode": "{{ .Values.imports.geonames.countrycode }}" 
         },
         "openaddresses": {
           "datapath": "/data/openaddresses",
-          "files": []
+          "files": [] 
         },
         "openstreetmap": {
           "download": [{
-              "sourceURL": "https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf"
+              "sourceURL": "{{ .Values.imports.openstreetmap.url }}" 
           }],
           "datapath": "/data/openstreetmap",
           "import": [{
-            "filename": "planet-latest.osm.pbf"
+            "filename": "{{ .Values.imports.openstreetmap.filename }}"
           }]
         },
         "polyline": {
@@ -114,7 +115,8 @@ data:
           "dataHost": "{{ .Values.whosonfirst.dataHost}}",
           {{ end }}
           "importPostalcodes": true,
-          "datapath": "/data/whosonfirst"
+          "datapath": "/data/whosonfirst",
+          "countryCode": "{{ .Values.imports.whosonfirst.countrycode }}"
         }
       }
     }
