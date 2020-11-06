@@ -19,6 +19,8 @@ seLinuxContext:
   type: RunAsAny 
 supplementalGroups:
   type: RunAsAny
+users:
+- system:serviceaccount:pelias:default
 volumes:
 - configMap
 - downwardAPI
